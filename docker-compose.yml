@@ -1,0 +1,25 @@
+version: '2'
+services:
+  mysql:
+    build:
+      context: .
+      dockerfile: ./docker/mysql/Dockerfile
+    environment:
+      MYSQL_ROOT_PASSWORD: pass
+    volumes:
+      - db:/var/lib/mysql
+    extends:
+      file: ./docker/mysql/password.yml
+      service: password
+  php:
+    build:
+      context: .
+      dockerfile: ./docker/php/Dockerfile
+    ports:
+      - '80:80'
+    volumes:
+      - ./html:/var/www/html
+    depends_on:
+      - mysql
+volumes:
+  db:
