@@ -4,9 +4,9 @@ services:
     build:
       context: .
       dockerfile: ./docker/mysql/Dockerfile
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      TZ: "Asia/Tokyo"
+    extends:
+      file: ./docker/mysql/password.yml
+      service: password
     ports:
       - 3306:3306
   php:
